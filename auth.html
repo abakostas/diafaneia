@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="el">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Διαφάνεια – Σύνδεση/Εγγραφή</title>
+<link rel="stylesheet" href="diafaneia-theme.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="app.js"></script>
+<body>
+  <header class="header">
+    <img src="diafaneia-logo-small.png" alt="Διαφάνεια"><strong>Διαφάνεια</strong>
+  </header>
+  <main class="hero">
+    <h1>Σύνδεση / Εγγραφή</h1>
+    <p class="lead">Ένας επώνυμος λογαριασμός ανά άτομο. Το πραγματικό σου όνομα αποθηκεύεται ιδιωτικά.</p>
+    <div class="card" style="max-width:520px">
+      <label>Πραγματικό ονοματεπώνυμο</label>
+      <input id="full_name" style="width:100%;padding:10px;border-radius:10px;margin:6px 0" placeholder="π.χ. Μαρία Παπαδοπούλου">
+      <label>Email</label>
+      <input id="email" type="email" style="width:100%;padding:10px;border-radius:10px;margin:6px 0" placeholder="name@example.com">
+      <button class="button" id="btnSignup">Εγγραφή (email σύνδεσμος)</button>
+      <div style="height:10px"></div>
+      <button class="button secondary" id="btnLogin">Σύνδεση (στείλε μου σύνδεσμο)</button>
+      <p class="lead" id="msg" style="margin-top:10px"></p>
+    </div>
+  </main>
+</body>
+</html>

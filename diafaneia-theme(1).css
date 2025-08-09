@@ -1,0 +1,46 @@
+
+/* Διαφάνεια – βασικό θέμα */
+:root{
+  --bg:#0f172a;          /* slate-900 */
+  --fg:#e2e8f0;          /* slate-200 */
+  --muted:#94a3b8;       /* slate-400 */
+  --accent:#1d4ed8;      /* blue-700 */
+  --accent-2:#0ea5e9;    /* sky-500 */
+  --surface:#111827;     /* gray-900 */
+  --ok:#16a34a;          /* green-600 */
+  --warn:#ca8a04;        /* yellow-600 */
+  --danger:#dc2626;      /* red-600 */
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Ubuntu,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--fg);
+}
+.header{
+  max-width:1100px; margin:0 auto; padding:32px 20px; display:flex; align-items:center; gap:16px;
+}
+.header img{height:42px}
+.hero{
+  max-width:1100px; margin:0 auto; padding:60px 20px 30px;
+}
+h1{font-size:42px; margin:0 0 10px}
+p.lead{font-size:18px; color:var(--muted); margin:0 0 24px}
+.cta{display:flex; gap:12px}
+.button{
+  padding:12px 18px; border-radius:10px; border:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(180deg, rgba(29,78,216,.9), rgba(14,165,233,.9));
+  color:white; text-decoration:none; font-weight:600; box-shadow:var(--shadow);
+}
+.button.secondary{
+  background:transparent; color:var(--fg); border:1px solid rgba(255,255,255,.15);
+}
+.footer{max-width:1100px; margin:40px auto; padding:0 20px; color:var(--muted); font-size:13px}
+.card{
+  background:var(--surface); border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:18px;
+}
+.grid{display:grid; grid-template-columns:1fr; gap:16px}
+@media(min-width:900px){ .grid{ grid-template-columns:1.2fr 1fr } }
