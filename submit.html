@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="el">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Διαφάνεια – Υποβολή Είδησης</title>
+<link rel="stylesheet" href="diafaneia-theme.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="app.js"></script>
+<body>
+<header class="header">
+  <img src="diafaneia-logo-small.png" alt="Διαφάνεια"><strong>Διαφάνεια</strong>
+</header>
+<main class="hero">
+  <h1>Υποβολή Είδησης</h1>
+  <div class="card" style="max-width:520px">
+    <label>Τίτλος</label>
+    <input id="title" style="width:100%;padding:10px;margin:5px 0">
+    <label>Κείμενο</label>
+    <textarea id="body" rows="6" style="width:100%;padding:10px;margin:5px 0"></textarea>
+    <label>Link πηγής (προαιρετικό)</label>
+    <input id="source" style="width:100%;padding:10px;margin:5px 0">
+    <label>Εικόνα (προαιρετικό)</label>
+    <input type="file" id="image" accept="image/*" style="margin:5px 0">
+    <label><input type="checkbox" id="hideName"> Κρύψε το όνομά μου</label>
+    <div style="height:10px"></div>
+    <button class="button" id="btnSubmit">Δημοσίευση</button>
+    <p class="lead" id="msg"></p>
+  </div>
+</main>
+</body>
+</html>

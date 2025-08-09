@@ -1,6 +1,8 @@
-// Διαφάνεια – Supabase Auth (client-side)
+// Διαφάνεια – Supabase Auth + Υποβολή
+// Βάλε εδώ τα στοιχεία του Supabase (Settings → API)
 const SUPABASE_URL = "https://rsdtthgofhzsgmbtqsfw.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJzZHR0aGdvZmh6c2dtYnRxc2Z3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ3NTQ1MTEsImV4cCI6MjA3MDMzMDUxMX0._o95T7yfgp5oi_sqcBtxdoHmRJVNKLzKKGvFvAP6a20";
+
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Helper: read session and show/hide panels
@@ -13,7 +15,6 @@ async function loadSession() {
     guest.style.display = 'none';
     panel.style.display = 'block';
     const user = session.user;
-    // fetch profile metadata
     const full = user.user_metadata?.full_name || '';
     const hide = user.user_metadata?.hide_name || false;
     const fullEl = document.getElementById('fullName');
@@ -77,3 +78,56 @@ window.addEventListener('DOMContentLoaded', () => {
 
   loadSession();
 });
+
+// Υποβολή είδησης
+const btnSubmit = document.getElementById('btnSubmit');
+if (btnSubmit) {
+  btnSubmit.onclick = async () => {
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) {
+      alert('Πρέπει να συνδεθείς πρώτα.');
+      return;
+    }
+    const title = document.getElementById('title').value.trim();
+    const body = document.getElementById('body').value.trim();
+    const source = document.getElementById('source').value.trim();
+    const hideName = document.getElementById('hideName').checked;
+    const fileInput = document.getElementById('image');
+    let image_url = null;
+
+    if (!title || !body) {
+      alert('Συμπλήρωσε τίτλο και κείμενο.');
+      return;
+    }
+
+    if (fileInput && fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      const filePath = `${user.id}/${Date.now()}_${file.name}`;
+      let { error: uploadError } = await supabaseClient.storage
+        .from('images')
+        .upload(filePath, file);
+      if (uploadError) {
+        alert('Σφάλμα ανεβάσματος εικόνας');
+        return;
+      }
+      const { data } = supabaseClient.storage.from('images').getPublicUrl(filePath);
+      image_url = data.publicUrl;
+    }
+
+    const { error } = await supabaseClient.from('posts').insert([{
+      title,
+      body,
+      source_url: source || null,
+      image_url,
+      author_id: user.id,
+      hide_name: hideName
+    }]);
+
+    if (error) {
+      alert('Σφάλμα: ' + error.message);
+    } else {
+      alert('Η είδηση καταχωρήθηκε!');
+      window.location.href = 'dashboard.html';
+    }
+  };
+}
